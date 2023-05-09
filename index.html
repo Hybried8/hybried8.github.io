@@ -9,9 +9,15 @@
         <!-- =====BOX ICONS===== -->
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-        <title>Portfolio website complete</title>
+        <title>Joel Ajakaye</title>
     </head>
+    
     <body>
+        <btt class="dark-light">
+            <div class="div-dark-mode">
+                <i onclick="darkMode()" class="bx bxs-moon moon-icon" id="themeToggler" title="toggle theme"></i>
+            </div>
+        </btt>
         <!--===== HEADER =====-->
         <header class="l-header">
             <nav class="nav bd-grid"
@@ -70,7 +76,7 @@
                     
                     <div>
                         <h2 class="about__subtitle"></h2>
-                        <p class="about__text"> A versatile software engineering student at who delights in implementing algorithms, webapps, mobile apps, basically anything to do with software and the development life cycle. Outside of work, I enjoy reading and playing tennis.</p>           
+                        <p class="about__text"> A versatile software engineering student at who delights in implementing algorithms, webapps, mobile apps, basically anything to do with software and the development life cycle. Outside of work I enjoy reading and playing tennis.</p>           
                         <h2 class="about__subtitle">         </h2>
 
                     
@@ -194,6 +200,13 @@
             </div>
             <p class="footer__copy"> Thanks for viewing :)</p>
         </footer>
+
+        <script>
+            function darkMode() {
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+        </script>
 
 
         <!--===== SCROLL REVEAL =====-->
