@@ -1,13 +1,40 @@
 /*===== GOOGLE FONTS =====*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
 /*===== VARIABLES CSS =====*/
 :root {
   --header-height: 3rem;
   --font-semi: 600;
 }
 
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+.dark-light {
+  position: fixed;
+  right: 5vw;
+  top: 10%;
+  z-index: 1000;
+}
+
+.div-dark-mode {
+  padding: 0.25rem;
+  border-radius: 15px;
+  display: flex;
+  background-color: #4070f4;
+}
+
+.moon-icon {
+  padding: 0.5rem;
+  text-decoration: none;
+  cursor: pointer;
+  list-style: none;
+}
+
 /* Colors */
-:root{
+:root {
   --first-color: #4070f4;
   --second-color: #0e2431;
 }
@@ -15,8 +42,8 @@
 
 
 
-  /*===== Fonts =====*/
-:root{
+/*===== Fonts =====*/
+:root {
   --body-font: 'Poppins', sans-serif;
   --big-font-size: 2rem;
   --h2-font-size: 1.25rem;
@@ -24,8 +51,8 @@
 }
 
 
-  /*===== Margins =====*/
-:root{
+/*===== Margins =====*/
+:root {
   --mb-1: 0.5rem;
   --mb-2: 1rem;
   --mb-3: 1.5rem;
@@ -36,8 +63,8 @@
 
 
 /*===== z index =====*/
-:root{
-  
+:root {
+
 
   --z-back: -10;
   --z-normal: 1;
@@ -55,7 +82,9 @@
 }
 
 /*===== BASE =====*/
-*, ::before, ::after {
+*,
+::before,
+::after {
   box-sizing: border-box;
 }
 
@@ -70,7 +99,9 @@ body {
   color: var(--second-color);
 }
 
-h1, h2, p {
+h1,
+h2,
+p {
   margin: 0;
 }
 
@@ -299,7 +330,7 @@ img {
 
 .skills__subtitle {
   margin-bottom: var(--mb-2);
-   text-align: center;
+  text-align: center;
 }
 
 .skills__text {
@@ -433,6 +464,7 @@ img {
   .home {
     row-gap: 2rem;
   }
+
   .home__img {
     width: 200px;
   }
@@ -442,39 +474,47 @@ img {
   .home {
     padding: 4rem 0 2rem;
   }
+
   .home__social {
     padding-top: 0;
     padding-bottom: 2.5rem;
     flex-direction: row;
     align-self: flex-end;
   }
+
   .home__social-icon {
     margin-bottom: 0;
     margin-right: var(--mb-4);
   }
+
   .home__img {
     width: 300px;
     bottom: 25%;
   }
+
   .about__container {
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
     text-align: initial;
   }
+
   .skills__container {
     grid-template-columns: .7fr;
     justify-content: center;
     column-gap: 1rem;
   }
+
   .projects__container {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 2rem;
     padding-top: 2rem;
   }
+
   .contact__form {
     width: 360px;
     padding-top: 2rem;
   }
+
   .contact__container {
     justify-items: center;
   }
@@ -484,53 +524,67 @@ img {
   body {
     margin: 0;
   }
+
   .section {
     padding-top: 4rem;
     padding-bottom: 3rem;
   }
+
   .section-title {
     margin-bottom: var(--mb-6);
   }
+
   .section-title::after {
     width: 80px;
     top: 3rem;
   }
+
   .nav {
     height: calc(var(--header-height) + 1.5rem);
   }
+
   .nav__list {
     display: flex;
     padding-top: 0;
   }
+
   .nav__item {
     margin-left: var(--mb-6);
     margin-bottom: 0;
   }
+
   .nav__toggle {
     display: none;
   }
+
   .nav__link {
     color: var(--second-color);
   }
+
   .home {
     padding: 8rem 0 2rem;
   }
+
   .home__img {
     width: 400px;
     bottom: 10%;
   }
+
   .about__container {
     padding-top: 2rem;
   }
+
   .about__img img {
     width: 300px;
   }
+
   .skills__container {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 2rem;
     align-items: center;
     text-align: initial;
   }
+
   .projects__container {
     grid-template-columns: repeat(3, 1fr);
     column-gap: 2rem;
@@ -542,9 +596,11 @@ img {
     margin-left: auto;
     margin-right: auto;
   }
+
   .home {
     padding: 10rem 0 2rem;
   }
+
   .home__img {
     width: 450px;
   }
