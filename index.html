@@ -5,216 +5,168 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/css/style.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <title>Joel Ajakaye | Software Engineer & Process Automation Analyst</title>
+        <title>Joel Ajakaye | Software Engineer</title>
         <style>
-            /* Quick Fix for the new Experience section layout */
-            .experience__container { row-gap: 2rem; }
-            .experience__content { 
-                padding: 1.5rem; 
-                background-color: #fff; 
-                border-radius: .5rem; 
-                box-shadow: 0 4px 25px rgba(14,36,49,0.15);
+            /* Custom Layout Tweaks */
+            .project__item {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+                padding: 1rem;
+                border-left: 2px solid var(--first-color);
             }
-            .experience__time { font-size: var(--smaller-font-size); color: var(--first-color); }
-            .experience__title { font-size: var(--h3-font-size); margin: .5rem 0; }
-            .experience__company { color: var(--second-color); font-weight: var(--font-semi); }
+            .project__icon {
+                font-size: 1.5rem; /* Smaller icons as requested */
+                color: var(--first-color);
+                min-width: 30px;
+            }
+            .project__details {
+                flex-grow: 1;
+            }
+            .experience__item {
+                margin-bottom: 2.5rem;
+            }
+            .tech-stack {
+                font-family: monospace;
+                font-size: 0.85rem;
+                color: var(--first-color);
+                margin-top: 0.5rem;
+                display: block;
+            }
+            .section-title { margin-bottom: 2rem; }
         </style>
     </head>
     <body>
         <header class="l-header">
             <nav class="nav bd-grid">
-                <div>
-                    <a href="#" class="nav__logo">JOEL.</a>
-                </div>
-
+                <div><a href="#" class="nav__logo">JOEL AJAKAYE</a></div>
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
-                        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                        <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
                         <li class="nav__item"><a href="#experience" class="nav__link">Experience</a></li>
                         <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
-                        <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
-                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
                     </ul>
                 </div>
-
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class='bx bx-menu'></i>
-                </div>
+                <div class="nav__toggle" id="nav-toggle"><i class='bx bx-menu'></i></div>
             </nav>
         </header>
 
         <main class="l-main">
             <section class="home bd-grid" id="home">
                 <div class="home__data">
-                    <h1 class="home__title">Hello! <br>I'm <span class="home__title-color">Joel</span><br> Software Engineer</h1>
-                    <p style="margin-bottom: var(--mb-4);">Process Automation Analyst @ Compugen | Incoming @ Accenture</p>
-                    <a href="#contact" class="button">Contact Me</a>
-                </div>
-
-                <div class="home__social">
-                    <a href="https://www.linkedin.com/in/joel-ajakaye-75a529213" target="_blank" class="home__social-icon"><i class='bx bxl-linkedin'></i> </a>
-                    <a href="https://github.com/Hybried8" target="_blank" class="home__social-icon"><i class='bx bxl-github' ></i></a>
-                    <a href="https://twitter.com/_callmehybrid" target="_blank" class="home__social-icon"><i class='bx bxl-twitter' ></i></a>
-                </div>
-
-                <div class="home__img">
-                    <svg id="10015.io" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <clipPath id="blob">
-                                <path fill="#474bff" d="M322,339Q240,438,173.5,339Q107,240,173.5,162.5Q240,85,322,162.5Q404,240,322,339Z" />
-                            </clipPath>
-                        </defs>
-                        <image x="0" y="0" width="100%" height="100%" clip-path="url(#blob)" xlink:href="assets/img/perfil.png" preserveAspectRatio="xMidYMid slice"></image>
-                    </svg>
+                    <h1 class="home__title">Joel <br><span class="home__title-color">Ajakaye</span></h1>
+                    <p>Software Engineer</p>
+                    <div class="home__social">
+                        <a href="https://github.com/Hybried8" target="_blank" class="home__social-icon"><i class='bx bxl-github'></i></a>
+                        <a href="https://www.linkedin.com/in/joel-ajakaye-75a529213" target="_blank" class="home__social-icon"><i class='bx bxl-linkedin'></i></a>
+                    </div>
                 </div>
             </section>
 
-            <section class="about section " id="about">
-                <h2 class="section-title">About</h2>
-                <div class="about__container bd-grid">
-                    <div class="about__img">
-                        <img src="assets/img/about.jpg" alt="Joel Ajakaye">
+            <section class="projects section" id="projects">
+                <h2 class="section-title">Technical Projects</h2>
+                <div class="projects__container bd-grid">
+
+                    <div class="project__item">
+                        <i class='bx bx-data project__icon'></i>
+                        <div class="project__details">
+                            <h3>ETL Data Pipeline</h3>
+                            <p>Engineered an ETL pipeline to retrieve financial data from Yahoo Finance at hourly intervals. Leveraged PySpark for processing 100GB of data with Plotly visualizations.</p>
+                            <span class="tech-stack">PySpark, Python, Yahoo Finance API, Plotly</span>
+                        </div>
                     </div>
-                    
-                    <div>
-                        <h2 class="about__subtitle">Building the Future of Automation</h2>
-                        <p class="about__text">
-                            I am a Software Engineer and Process Automation Analyst who specializes in implementing robust algorithms, scalable web applications, and intelligent workflows. 
-                            Beyond code, I excel in 3D modeling and robotics. My approach is driven by the **UMPIRE method**, ensuring every solution is planned, implemented, and reviewed for maximum efficiency.
-                        </p>
-                    </div>                                    
+
+                    <div class="project__item">
+                        <i class='bx bxl-apple project__icon'></i>
+                        <div class="project__details">
+                            <h3>Charted (iOS App)</h3>
+                            <p>Comprehensive financial analysis and recommendation app for iOS. Integrated complex calculation algorithms for personalized financial insights.</p>
+                            <span class="tech-stack">Swift, SwiftUI, Xcode</span>
+                        </div>
+                    </div>
+
+                    <div class="project__item">
+                        <i class='bx bx-code-alt project__icon'></i>
+                        <div class="project__details">
+                            <h3>OpenAI Code Refactor</h3>
+                            <p>AI-powered tool using OpenAI API and TensorFlow to automate code refactoring and analyze multiple code parameters simultaneously.</p>
+                            <span class="tech-stack">Python, OpenAI API, TensorFlow</span>
+                        </div>
+                    </div>
+
+                    <div class="project__item">
+                        <i class='bx bx-extension project__icon'></i>
+                        <div class="project__details">
+                            <h3>CodeX Browser Extension</h3>
+                            <p>Web extension enabling direct conversion of source code to text file format with syntax highlighting and cross-browser compatibility.</p>
+                            <span class="tech-stack">JavaScript, HTML5, CSS3</span>
+                        </div>
+                    </div>
+
+                    <div class="project__item">
+                        <i class='bx bx-cube project__icon'></i>
+                        <div class="project__details">
+                            <h3>3D Tennis Racket Model</h3>
+                            <p>Mechanical design and 3D modeling of a tennis racket, focusing on circuit simulation and structural robotics principles.</p>
+                            <span class="tech-stack">3D Modeling, Robotics Simulation</span>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
             <section class="experience section" id="experience">
-                <h2 class="section-title">Professional Experience</h2>
+                <h2 class="section-title">Technical Experience</h2>
                 <div class="experience__container bd-grid">
-                    
-                    <div class="experience__content">
-                        <span class="experience__time">June 2025 — August 2025</span>
-                        <h3 class="experience__title">Technology Security Summer Analyst</h3>
-                        <span class="experience__company">Accenture</span>
-                        <p class="experience__description">Engineered an end-to-end vulnerability detection workflow using Python and ServiceNow, automating triage for 10,000+ weekly vulnerabilities and reducing security response time from 7 days to under 48 hours.</p>
+
+                    <div class="experience__item">
+                        <h3>Technology Security Analyst | Accenture</h3>
+                        <p>Architected scalable ServiceNow integration with infrastructure mapping. Engineered vulnerability detection workflows using Tenable and Python scripts to automate triage for 10,000+ weekly vulnerabilities.</p>
                     </div>
 
-                    <div class="experience__content">
-                        <span class="experience__time">March 2025 — April 2025</span>
-                        <h3 class="experience__title">Software Engineer Intern</h3>
-                        <span class="experience__company">Wouessi</span>
-                        <p class="experience__description">Architected a Redis-backed rate-limiting middleware and containerized 10 high-availability microservices using TypeScript, Python, and MongoDB with Docker orchestration.</p>
+                    <div class="experience__item">
+                        <h3>Software Engineer Intern | Wouessi</h3>
+                        <p>Architected Redis-backed rate-limiting middleware. Developed and containerized 10 high-availability microservices using TypeScript, Python, and MongoDB orchestrated via Docker.</p>
                     </div>
 
-                    <div class="experience__content">
-                        <span class="experience__time">May 2024 — July 2024</span>
-                        <h3 class="experience__title">Research Intern (GAN & Neural Networks)</h3>
-                        <span class="experience__company">Carleton University</span>
-                        <p class="experience__description">Collaborated on a novel GAN architecture using TensorFlow and PyTorch, improving image generation quality by 25% for vehicle identification research.</p>
+                    <div class="experience__item">
+                        <h3>Research Intern | Carleton University (Vector Institute)</h3>
+                        <p>Advanced GAN research by developing a novel architecture that improved image generation quality by 25%. Conducted object detection experiments using TensorFlow, Keras, and PyTorch.</p>
+                    </div>
+
+                    <div class="experience__item">
+                        <h3>Data Analyst Intern | Vitract (Biotech)</h3>
+                        <p>Conducted data analysis using Prolog. Developed a data pipeline using SWI-Prolog and Python to automate the parsing, merging, and testing of 10+ datasets.</p>
+                    </div>
+
+                    <div class="experience__item">
+                        <h3>IT Intern | Nahco Aviance</h3>
+                        <p>Developed backend APIs for core services and engineered IT infrastructure for online event services supporting 500 concurrent users.</p>
                     </div>
 
                 </div>
             </section>
 
             <section class="skills section" id="skills">
-                <h2 class="section-title">Technical Skills</h2>
-                <div class="skills__container bd-grid">           
+                <h2 class="section-title">Technical Stack</h2>
+                <div class="skills__container bd-grid">
                     <div>
-                        <h2 class="skills__subtitle">Languages & Tools</h2>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-python skills__icon'></i>
-                                <span class="skills__name">PYTHON / JAVA / C</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-javascript skills__icon' ></i>
-                                <span class="skills__name">JAVASCRIPT / TYPESCRIPT</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-aws skills__icon'></i>
-                                <span class="skills__name">AWS / DOCKER / K8S</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bx-cog skills__icon'></i>
-                                <span class="skills__name">BPMN 2.0 / CAMUNDA 8</span>
-                            </div>
-                        </div>
+                        <h3 class="skills__subtitle">Programming Languages</h3>
+                        <p>Python, Java, C, C++, Swift, SQL, JavaScript, HTML, CSS, PHP, Prolog</p>
+                        
+                        <h3 class="skills__subtitle" style="margin-top: 1.5rem;">Tools & DevOps</h3>
+                        <p>AWS, Docker, Kubernetes, Linux, Git, REST APIs, Tenable, ServiceNow, Xcode, PySpark</p>
                     </div>
-                    
-                    <div>                               
-                        <img src="assets/img/skills-tech.jpg" alt="" class="skills__img">
-                    </div>
-                </div>
-            </section>
-
-            <section class="projects section" id="projects">
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="work__container bd-grid">
-                    
-                    <div class="work__card">
-                        <a href="https://github.com/Hybried8/ETL" class="work__img">
-                            <img src="assets/img/work1.jpg" alt="ETL Data Pipeline">
-                        </a>
-                        <h3>ETL Data Pipeline</h3>
-                        <p>Real-time financial data retrieval from Yahoo Finance using PySpark for 100GB+ datasets.</p>
-                    </div>
-
-                    <div class="work__card">
-                        <a href="https://github.com/Hybried8/Charted" class="work__img">
-                            <img src="assets/img/work2.jpg" alt="Charted iOS App">
-                        </a>
-                        <h3>Charted</h3>
-                        <p>Comprehensive financial analysis and recommendation app built with Swift and SwiftUI.</p>
-                    </div>
-
-                    <div class="work__card">
-                        <a href="https://github.com/Hybried8/Finished" class="work__img">
-                            <img src="assets/img/work3.jpg" alt="Productivity App">
-                        </a>
-                        <h3>Finished</h3>
-                        <p>High-performance productivity suite using PHP, React, and Node.js.</p>
-                    </div>
-
-                    <div class="work__card">
-                        <a href="#" class="work__img">
-                            <img src="assets/img/work4.jpg" alt="3D Modeling">
-                        </a>
-                        <h3>3D Tennis Racket</h3>
-                        <p>High-fidelity 3D model showcasing mechanical design and simulation skills.</p>
-                    </div>
-
-                </div>
-            </section>
-
-            <section class="contact section" id="contact">
-                <h2 class="section-title">Contact</h2>
-                <div class="contact__container bd-grid">
-                    <form action="https://formspree.io/f/your-id" method="POST" class="contact__form">
-                        <input type="text" name="name" placeholder="Name" class="contact__input" required>
-                        <input type="email" name="email" placeholder="Email" class="contact__input" required>
-                        <textarea name="message" cols="0" rows="10" placeholder="Your Message" class="contact__input" required></textarea>
-                        <input type="submit" value="Send Message" class="contact__button button">
-                    </form>
                 </div>
             </section>
         </main>
 
         <footer class="footer">
-            <p class="footer__title">Joel Ajakaye</p>
-            <div class="footer__social">
-                <a href="https://www.linkedin.com/in/joel-ajakaye-75a529213" class="footer__icon"><i class='bx bxl-linkedin' ></i></a>
-                <a href="https://github.com/Hybried8" class="footer__icon"><i class='bx bxl-github' ></i></a>
-                <a href="https://twitter.com/_callmehybrid" class="footer__icon"><i class='bx bxl-twitter' ></i></a>
-            </div>
-            <p class="footer__copy">&#169; 2026 Joel Ajakaye. All rights reserved.</p>
+            <p class="footer__copy">&#169; 2026 Joel Ajakaye | Ottawa, Ontario</p>
         </footer>
 
-        <script src="https://unpkg.com/scrollreveal"></script>
         <script src="assets/js/main.js"></script>
     </body>
 </html>
