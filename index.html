@@ -1,200 +1,929 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <title>Joel Ajakaye | Software Engineer</title>
-        <style>
-            :root {
-                --first-color: #000000;
-                --text-color: #000000;
-                --body-color: #ffffff;
-                --container-color: #ffffff;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joel Ajakaye | Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-            /* Dark Mode Variables */
-            body.dark-theme {
-                --first-color: #ffffff;
-                --text-color: #e0e0e0;
-                --body-color: #121212;
-                --container-color: #1e1e1e;
-            }
+        :root {
+            --purple-deep: #1a0a2e;
+            --purple-mid: #2d1654;
+            --purple-bright: #7c3aed;
+            --purple-neon: #a855f7;
+            --purple-glow: #c084fc;
+            --purple-pale: #e9d5ff;
+            --accent-cyan: #06b6d4;
+            --accent-pink: #ec4899;
+            --text-primary: #f3e8ff;
+            --text-secondary: #c4b5fd;
+            --text-muted: #7c6b9e;
+            --surface: rgba(45, 22, 84, 0.4);
+            --surface-hover: rgba(124, 58, 237, 0.15);
+            --border: rgba(168, 85, 247, 0.2);
+            --border-bright: rgba(168, 85, 247, 0.6);
+        }
 
-            body { color: var(--text-color); background-color: var(--body-color); transition: .4s; }
-            h1, h2, h3, p { color: var(--text-color); }
+        html { scroll-behavior: smooth; }
 
-            .nav__btns { display: flex; align-items: center; column-gap: 1rem; }
-            .change-theme { font-size: 1.25rem; color: var(--text-color); cursor: pointer; }
+        body {
+            font-family: 'DM Mono', monospace;
+            background-color: var(--purple-deep);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            cursor: none;
+        }
 
-            .project__item {
-                display: flex;
-                align-items: flex-start;
-                gap: 1.5rem;
-                margin-bottom: 2.5rem;
-                padding: 1rem;
-                border-left: 2px solid var(--first-color);
-            }
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 10px; height: 10px;
+            background: var(--purple-neon);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+            mix-blend-mode: screen;
+        }
+        .cursor-follower {
+            position: fixed;
+            width: 36px; height: 36px;
+            border: 1.5px solid var(--purple-glow);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: all 0.08s ease;
+            opacity: 0.6;
+        }
+        body:hover .cursor { opacity: 1; }
 
-            /* Clickable Project Icons */
-            .project__link-icon {
-                font-size: 1.8rem;
-                color: var(--first-color);
-                transition: .3s;
-                padding-top: 5px;
-            }
-            .project__link-icon:hover { transform: scale(1.2); color: #555; }
+        /* Noise Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            background-size: 256px;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.35;
+        }
 
-            .experience__item { margin-bottom: 2.5rem; }
-            .tech-stack-label {
-                font-family: 'Courier New', Courier, monospace;
-                font-weight: bold;
-                font-size: 0.8rem;
-                margin-top: 0.5rem;
-                display: block;
-                text-transform: uppercase;
-            }
-        </style>
-    </head>
-    <body>
-        <header class="l-header">
-            <nav class="nav bd-grid">
-                <div><a href="#" class="nav__logo">JOEL AJAKAYE</a></div>
-                
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
-                        <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
-                        <li class="nav__item"><a href="#experience" class="nav__link">Experience</a></li>
-                        <li class="nav__item"><a href="#skills" class="nav__link">Stack</a></li>
+        /* Background Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            animation: orb-drift 18s ease-in-out infinite alternate;
+        }
+        .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%); top: -100px; left: -100px; animation-delay: 0s; }
+        .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(168,85,247,0.2) 0%, transparent 70%); bottom: 20%; right: -50px; animation-delay: -6s; }
+        .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, transparent 70%); top: 50%; left: 40%; animation-delay: -12s; }
+        @keyframes orb-drift { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 30px) scale(1.1); } }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 4rem;
+            background: rgba(26, 10, 46, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav__logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        .nav__logo span { color: var(--purple-neon); }
+        .nav__links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav__links a {
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav__links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 1px;
+            background: var(--purple-neon);
+            transition: width 0.3s ease;
+        }
+        .nav__links a:hover { color: var(--purple-pale); }
+        .nav__links a:hover::after { width: 100%; }
+        .nav__socials { display: flex; gap: 1rem; align-items: center; }
+        .nav__socials a {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+            display: flex; align-items: center;
+        }
+        .nav__socials a:hover { color: var(--purple-neon); transform: translateY(-2px); }
+        .nav__socials svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* HERO */
+        #home {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            gap: 4rem;
+            position: relative;
+        }
+        .hero__tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--purple-neon);
+            border: 1px solid var(--border-bright);
+            padding: 0.35rem 0.85rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            animation: fade-in 0.8s ease both;
+        }
+        .hero__tag::before { content: ''; width: 6px; height: 6px; background: var(--purple-neon); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .hero__name {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3.5rem, 7vw, 6.5rem);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+            animation: fade-up 0.9s ease 0.1s both;
+        }
+        .hero__name .line { display: block; }
+        .hero__name .outline {
+            -webkit-text-stroke: 2px var(--purple-bright);
+            color: transparent;
+            position: relative;
+        }
+        .hero__name .outline::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px; top: 2px;
+            -webkit-text-stroke: 2px var(--purple-mid);
+            color: transparent;
+            z-index: -1;
+        }
+
+        .hero__subtitle {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.08em;
+            line-height: 1.8;
+            max-width: 380px;
+            animation: fade-up 0.9s ease 0.2s both;
+        }
+
+        .hero__cta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            animation: fade-up 0.9s ease 0.3s both;
+        }
+        .btn {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.75rem 1.75rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+        .btn-primary {
+            background: var(--purple-bright);
+            color: white;
+            border: 1px solid var(--purple-bright);
+            box-shadow: 0 0 20px rgba(124,58,237,0.4);
+        }
+        .btn-primary:hover {
+            background: var(--purple-neon);
+            border-color: var(--purple-neon);
+            box-shadow: 0 0 35px rgba(168,85,247,0.6);
+            transform: translateY(-2px);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .btn-ghost:hover {
+            border-color: var(--purple-neon);
+            color: var(--purple-pale);
+            box-shadow: 0 0 15px rgba(168,85,247,0.15);
+        }
+
+        /* Hero Right: Floating Card */
+        .hero__visual {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            animation: fade-in 1.2s ease 0.4s both;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--purple-bright), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .stat-card:hover { border-color: var(--border-bright); transform: translateX(6px); box-shadow: -4px 0 20px rgba(124,58,237,0.2); }
+        .stat-card:hover::before { opacity: 1; }
+        .stat-card__label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
+        .stat-card__value { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--text-primary); }
+        .stat-card__value span { color: var(--purple-neon); }
+        .stat-card__desc { font-size: 0.7rem; color: var(--text-secondary); margin-top: 0.2rem; }
+        .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+        /* SECTIONS */
+        section { padding: 7rem 4rem; position: relative; }
+        .section__header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        .section__num {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.65rem;
+            color: var(--purple-neon);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .section__title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+        .section__line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-bright), transparent);
+        }
+
+        /* PROJECTS */
+        #projects { background: linear-gradient(180deg, var(--purple-deep) 0%, rgba(26,10,46,0.95) 100%); }
+        .projects__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
+            cursor: none;
+        }
+        .project-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(124,58,237,0.12) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .project-card:hover {
+            border-color: var(--border-bright);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(124,58,237,0.25), 0 0 0 1px rgba(168,85,247,0.1);
+        }
+        .project-card:hover::after { opacity: 1; }
+
+        .project-card__icon {
+            width: 46px; height: 46px;
+            background: rgba(124,58,237,0.2);
+            border: 1px solid var(--border-bright);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            transition: background 0.3s;
+        }
+        .project-card:hover .project-card__icon { background: rgba(124,58,237,0.4); }
+
+        .project-card__title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+        .project-card__desc {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-bottom: 1.5rem;
+        }
+        .project-card__bullets { list-style: none; padding: 0; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.45rem; }
+        .project-card__bullets li { font-size: 0.7rem; color: var(--text-secondary); line-height: 1.7; padding-left: 1rem; position: relative; }
+        .project-card__bullets li::before { content: '—'; position: absolute; left: 0; color: var(--purple-bright); }
+        .project-card__bullets strong { color: var(--purple-glow); font-weight: 500; }
+        .project-card__stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .tag {
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            background: rgba(124,58,237,0.15);
+            color: var(--purple-glow);
+            border: 1px solid rgba(124,58,237,0.3);
+        }
+        .project-card__arrow {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            transition: transform 0.3s, color 0.3s;
+        }
+        .project-card:hover .project-card__arrow { transform: translate(3px,-3px); color: var(--purple-neon); }
+
+        /* EXPERIENCE */
+        #experience {
+            background: linear-gradient(180deg, rgba(26,10,46,0.95) 0%, var(--purple-deep) 100%);
+        }
+        .experience__timeline { position: relative; padding-left: 2rem; }
+        .experience__timeline::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 1px;
+            background: linear-gradient(180deg, var(--purple-bright), transparent);
+        }
+        .exp-item {
+            position: relative;
+            padding: 1.75rem 2rem;
+            margin-bottom: 0.5rem;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .exp-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 2.1rem;
+            width: 8px; height: 8px;
+            background: var(--purple-mid);
+            border: 2px solid var(--purple-bright);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        .exp-item:hover { background: var(--surface-hover); border-color: var(--border); }
+        .exp-item:hover::before { background: var(--purple-neon); box-shadow: 0 0 10px var(--purple-neon); transform: scale(1.3); }
+
+        .exp-item__role {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+        .exp-item__company {
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--purple-neon);
+            margin-bottom: 0.75rem;
+        }
+        .exp-item__desc {
+            font-size: 0.73rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* SKILLS */
+        #skills { background: var(--purple-deep); }
+        .skills__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .skill-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s;
+        }
+        .skill-block:hover { border-color: var(--border-bright); }
+        .skill-block__label {
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--purple-neon);
+            margin-bottom: 1.25rem;
+        }
+        .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .pill {
+            font-size: 0.7rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 100px;
+            background: rgba(45, 22, 84, 0.8);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            transition: all 0.25s ease;
+        }
+        .pill:hover { background: rgba(124,58,237,0.25); border-color: var(--purple-bright); color: var(--purple-pale); transform: translateY(-1px); }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer p { font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.1em; }
+        .footer__right { display: flex; gap: 1.5rem; }
+        .footer__right a { font-size: 0.68rem; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.3s; }
+        .footer__right a:hover { color: var(--purple-neon); }
+
+        /* Animations */
+        @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fade-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .exp-item__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.85rem; gap: 1rem; }
+        .exp-item__date { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); white-space: nowrap; padding-top: 0.15rem; }
+        .exp-item__bullets { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+        .exp-item__bullets li { font-size: 0.73rem; color: var(--text-secondary); line-height: 1.75; padding-left: 1rem; position: relative; }
+        .exp-item__bullets li::before { content: '—'; position: absolute; left: 0; color: var(--purple-bright); }
+        .exp-item__bullets strong { color: var(--purple-glow); font-weight: 500; }
+        .skills__grid--3 { grid-template-columns: 1fr 1fr 1fr; }
+        @media (max-width: 900px) { .skills__grid--3 { grid-template-columns: 1fr; } .exp-item__date { display: none; } }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--purple-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--purple-mid); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--purple-bright); }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            nav { padding: 1.25rem 2rem; }
+            .nav__links { display: none; }
+            #home { grid-template-columns: 1fr; padding: 7rem 2rem 4rem; }
+            .hero__visual { display: none; }
+            section { padding: 5rem 2rem; }
+            .projects__grid { grid-template-columns: 1fr; }
+            .skills__grid { grid-template-columns: 1fr; }
+            footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <nav>
+        <a href="#home" class="nav__logo">J<span>.</span>A</a>
+        <ul class="nav__links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Stack</a></li>
+            <li><a href="#volunteering">Volunteering</a></li>
+        </ul>
+        <div class="nav__socials">
+            <a href="https://github.com/Hybried8" target="_blank" title="GitHub">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/joel-ajakaye-75a529213" target="_blank" title="LinkedIn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO -->
+        <section id="home">
+            <div class="hero__left">
+                <div class="hero__tag">Available for opportunities</div>
+                <h1 class="hero__name">
+                    <span class="line">Joel</span>
+                    <span class="line outline" data-text="Ajakaye">Ajakaye</span>
+                </h1>
+                <p class="hero__subtitle">
+                    Software engineer specializing in data infrastructure, AI systems, and full-stack development. Based in Ottawa, ON.
+                </p>
+                <div class="hero__cta">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#experience" class="btn btn-ghost">Experience</a>
+                </div>
+            </div>
+            <div class="hero__visual">
+                <div class="stat-row">
+                    <div class="stat-card">
+                        <div class="stat-card__label">Data Processed</div>
+                        <div class="stat-card__value"><span>100</span>GB+</div>
+                        <div class="stat-card__desc">PySpark pipelines</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__label">CVEs Handled</div>
+                        <div class="stat-card__value"><span>10K</span>+</div>
+                        <div class="stat-card__desc">Weekly at Accenture</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card__label">Current Role</div>
+                    <div class="stat-card__value" style="font-size:1.1rem">Technology Security Analyst</div>
+                    <div class="stat-card__desc">Accenture · ServiceNow · Tenable · Python</div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-card">
+                        <div class="stat-card__label">GAN Improvement</div>
+                        <div class="stat-card__value"><span>25</span>%</div>
+                        <div class="stat-card__desc">Carleton Research</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__label">Uptime Gain</div>
+                        <div class="stat-card__value"><span>20</span>%</div>
+                        <div class="stat-card__desc">Systems Consulting</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects">
+            <div class="section__header reveal">
+                <span class="section__num">01</span>
+                <h2 class="section__title">Technical Projects</h2>
+                <div class="section__line"></div>
+            </div>
+            <div class="projects__grid">
+                <a href="https://github.com/Hybried8/ETL" target="_blank" class="project-card reveal">
+                    <div class="project-card__arrow">↗</div>
+                    <div class="project-card__icon">⚡</div>
+                    <div class="project-card__title">ETL Data Pipeline</div>
+                    <ul class="project-card__bullets">
+                        <li>Engineered a fully automated ETL pipeline pulling live financial data from Yahoo Finance across <strong>10 key indicators</strong> at hourly intervals — zero manual intervention.</li>
+                        <li>Leveraged <strong>PySpark</strong> distributed computing to process <strong>100GB+</strong> of historical market data, reducing retrieval and transformation time from <strong>2 hours to 30 minutes</strong>.</li>
+                        <li>Built an interactive <strong>Plotly dashboard</strong> with candlestick charts, volume overlays, and moving average indicators to surface actionable trading signals.</li>
+                        <li>Implemented fault-tolerant scheduling with retry logic and alerting, ensuring <strong>99%+ pipeline uptime</strong> and data freshness SLA.</li>
+                        <li>Designed a modular schema supporting plug-and-play addition of new ticker symbols and data sources with no code changes.</li>
+                    </ul>
+                    <div class="project-card__stack">
+                        <span class="tag">PySpark</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Plotly</span>
+                        <span class="tag">Yahoo Finance API</span>
+                        <span class="tag">Pandas</span>
+                    </div>
+                </a>
+                <a href="https://github.com/Hybried8/Charted" target="_blank" class="project-card reveal">
+                    <div class="project-card__arrow">↗</div>
+                    <div class="project-card__icon">📱</div>
+                    <div class="project-card__title">Charted — iOS App</div>
+                    <ul class="project-card__bullets">
+                        <li>Built a full-stack iOS financial analysis app in <strong>SwiftUI</strong> with real-time portfolio tracking, asset allocation breakdowns, and personalized buy/sell recommendations.</li>
+                        <li>Engineered a custom <strong>compound interest and risk-scoring engine</strong> that weighs volatility, time horizon, and sector exposure to produce tailored investment insights.</li>
+                        <li>Designed a multi-screen navigation architecture following <strong>MVVM</strong> patterns, keeping business logic cleanly separated from UI for testability and extensibility.</li>
+                        <li>Implemented <strong>Core Data persistence</strong> for offline portfolio access and smooth UX during network interruptions.</li>
+                        <li>Authored comprehensive <strong>Python test scripts</strong> to validate all financial calculation functions against known benchmarks, achieving full algorithmic correctness.</li>
+                    </ul>
+                    <div class="project-card__stack">
+                        <span class="tag">Swift</span>
+                        <span class="tag">SwiftUI</span>
+                        <span class="tag">Xcode</span>
+                        <span class="tag">Core Data</span>
+                        <span class="tag">MVVM</span>
+                        <span class="tag">Python</span>
+                    </div>
+                </a>
+                <a href="https://github.com/Hybried8/Refactor" target="_blank" class="project-card reveal">
+                    <div class="project-card__arrow">↗</div>
+                    <div class="project-card__icon">🧠</div>
+                    <div class="project-card__title">AI Code Refactor</div>
+                    <ul class="project-card__bullets">
+                        <li>Built an AI-powered static analysis and refactoring tool that ingests codebases of <strong>100,000+ lines</strong> and produces prioritized, context-aware improvement suggestions.</li>
+                        <li>Integrated the <strong>OpenAI API</strong> with a custom prompt engineering layer to generate human-readable refactoring rationale alongside each code change, cutting manual review time by <strong>50%</strong>.</li>
+                        <li>Trained a <strong>TensorFlow</strong> classifier on labelled code smell datasets to detect anti-patterns (God classes, deep nesting, dead code), achieving <strong>90% suggestion accuracy</strong> and reducing false positives by <strong>30%</strong>.</li>
+                        <li>Designed a diff-aware output format that integrates directly into standard Git pull-request workflows — no toolchain changes required.</li>
+                        <li>Reduced average code complexity scores by <strong>20%</strong> across test projects, measurably improving long-term maintainability.</li>
+                    </ul>
+                    <div class="project-card__stack">
+                        <span class="tag">Python</span>
+                        <span class="tag">OpenAI API</span>
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag">AST Parsing</span>
+                        <span class="tag">Git</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience">
+            <div class="section__header reveal">
+                <span class="section__num">02</span>
+                <h2 class="section__title">Experience</h2>
+                <div class="section__line"></div>
+            </div>
+            <div class="experience__timeline">
+                <div class="exp-item reveal">
+                    <div class="exp-item__header">
+                        <div><div class="exp-item__role">Technology Security Summer Analyst</div><div class="exp-item__company">Accenture</div></div>
+                        <div class="exp-item__date">Jun 2025 — Aug 2025</div>
+                    </div>
+                    <ul class="exp-item__bullets">
+                        <li>Designed and proposed a scalable architecture integrating <strong>ServiceNow CMDB</strong> with real-time infrastructure discovery tools, establishing <strong>100% asset traceability</strong> across <strong>5,000+ servers, endpoints, and cloud resources</strong> — eliminating blind spots in the vulnerability management program.</li>
+                        <li>Engineered an end-to-end <strong>vulnerability detection and remediation workflow</strong> connecting Tenable scan results to custom Python triage scripts and ServiceNow ticketing automation, enabling structured handling of over <strong>10,000 CVEs per week</strong> with full audit trail.</li>
+                        <li>Performed threat intelligence analysis using Tenable dashboards to surface the top <strong>5% of critical CVEs</strong> by CVSS score and exploitability, cutting average remediation SLA from <strong>7 days to under 48 hours</strong>.</li>
+                        <li>Reduced cross-team manual handoffs by <strong>40%</strong> by designing automated routing rules that assigned remediation tickets to the correct engineering team based on asset owner, environment, and severity — improving overall MTTR significantly.</li>
+                        <li>Collaborated with senior security architects to document the proposed CMDB integration design and present it to stakeholders, receiving approval for full-scale implementation post-internship.</li>
                     </ul>
                 </div>
-
-                <div class="nav__btns">
-                    <i class='bx bx-moon change-theme' id="theme-button"></i>
-                    <div class="nav__toggle" id="nav-toggle"><i class='bx bx-menu'></i></div>
+                <div class="exp-item reveal">
+                    <div class="exp-item__header">
+                        <div><div class="exp-item__role">Software Engineer Intern</div><div class="exp-item__company">Wouessi</div></div>
+                        <div class="exp-item__date">Mar 2025 — Apr 2025</div>
+                    </div>
+                    <ul class="exp-item__bullets">
+                        <li>Architected a <strong>Redis-backed rate-limiting middleware</strong> layer for the authentication service, enforcing per-IP and per-user request quotas that reduced unauthorized login attempts by <strong>60%</strong> while preserving sub-10ms latency for legitimate traffic.</li>
+                        <li>Developed and containerized <strong>10 high-availability microservices</strong> using a polyglot stack (TypeScript, Python, MongoDB), orchestrated via <strong>Docker Compose</strong> with health checks and restart policies — achieving <strong>100% environment parity</strong> between dev and staging.</li>
+                        <li>Reduced deployment-related environment failures by <strong>40%</strong> by establishing consistent Docker image layering strategies, shared environment variable management, and container networking conventions adopted team-wide.</li>
+                        <li>Championed code quality by leading weekly peer review sessions, identifying <strong>17 mission-critical security and logic vulnerabilities</strong> before they reached production — preventing potential data exposure and service downtime.</li>
+                        <li>Authored internal documentation standardizing <strong>TypeSafe</strong> development practices across the intern cohort, establishing typed API contracts, strict null checks, and interface-first design as team defaults.</li>
+                    </ul>
                 </div>
-            </nav>
-        </header>
-
-        <main class="l-main">
-            <section class="home bd-grid" id="home">
-                <div class="home__data">
-                    <h1 class="home__title">Joel <br>Ajakaye</h1>
-                    <p style="font-weight: bold;">Software Engineer</p>
-                    <div class="home__social">
-                        <a href="https://github.com/Hybried8" target="_blank" class="home__social-icon"><i class='bx bxl-github'></i></a>
-                        <a href="https://www.linkedin.com/in/joel-ajakaye-75a529213" target="_blank" class="home__social-icon"><i class='bx bxl-linkedin'></i></a>
+                <div class="exp-item reveal">
+                    <div class="exp-item__header">
+                        <div><div class="exp-item__role">Computer Consultant</div><div class="exp-item__company">Carleton University</div></div>
+                        <div class="exp-item__date">Sep 2024 — Mar 2025</div>
                     </div>
+                    <ul class="exp-item__bullets">
+                        <li>Served as a primary technical support resource for over <strong>2,000 students, faculty, and staff</strong>, resolving software, hardware, and network issues across all major university computing environments.</li>
+                        <li>Diagnosed and resolved over <strong>200 technical incidents</strong> in university computer labs — including OS failures, peripheral malfunctions, and connectivity outages — maintaining high lab availability during peak academic periods.</li>
+                        <li>Supported patch management and software update rollouts across lab machines, contributing to a <strong>20% reduction</strong> in reported system failures over the contract period.</li>
+                        <li>Triaged and escalated complex infrastructure issues to senior IT staff with thorough documentation, reducing repeat incidents by ensuring root causes were addressed rather than patched.</li>
+                        <li>Improved self-service resolution rates by contributing to the internal knowledge base, authoring step-by-step guides for the most frequently reported issues that reduced ticket volume from repeat requesters.</li>
+                    </ul>
                 </div>
-            </section>
-
-            <section class="projects section" id="projects">
-                <h2 class="section-title">Technical Projects</h2>
-                <div class="projects__container bd-grid">
-
-                    <div class="project__item">
-                        <a href="https://github.com/Hybried8/ETL" target="_blank" class="project__link-icon">
-                            <i class='bx bx-data'></i>
-                        </a>
-                        <div class="project__details">
-                            <h3>ETL Data Pipeline</h3>
-                            <p>Engineered a pipeline to retrieve financial data from Yahoo Finance at hourly intervals. Leveraged PySpark for 100GB+ datasets with Plotly visualizations.</p>
-                            <span class="tech-stack-label">PySpark, Python, Plotly</span>
-                        </div>
+                <div class="exp-item reveal">
+                    <div class="exp-item__header">
+                        <div><div class="exp-item__role">Research Intern</div><div class="exp-item__company">Carleton University</div></div>
+                        <div class="exp-item__date">May 2024 — Jul 2024</div>
                     </div>
-
-                    <div class="project__item">
-                        <a href="https://github.com/Hybried8/Charted" target="_blank" class="project__link-icon">
-                            <i class='bx bxl-apple'></i>
-                        </a>
-                        <div class="project__details">
-                            <h3>Charted (iOS)</h3>
-                            <p>Financial analysis and recommendation engine for iOS. Integrated complex calculation algorithms for personalized asset insights.</p>
-                            <span class="tech-stack-label">Swift, SwiftUI, Xcode</span>
-                        </div>
-                    </div>
-
-                    <div class="project__item">
-                        <a href="https://github.com/Hybried8/Refactor" target="_blank" class="project__link-icon">
-                            <i class='bx bx-brain'></i>
-                        </a>
-                        <div class="project__details">
-                            <h3>OpenAI Code Refactor</h3>
-                            <p>AI-powered refactoring tool using OpenAI API and TensorFlow to analyze and optimize code parameters automatically.</p>
-                            <span class="tech-stack-label">Python, OpenAI API, TensorFlow</span>
-                        </div>
-                    </div>
-
+                    <ul class="exp-item__bullets">
+                        <li>Collaborated directly with <strong>Dr. Safaa Bedawi</strong> on advancing GAN and deep learning research, contributing to the development of a <strong>novel GAN architecture</strong> that improved synthetic image generation quality by <strong>25%</strong> over the existing baseline.</li>
+                        <li>Designed and executed a structured series of <strong>ablation experiments</strong> using TensorFlow, Keras, PyTorch, and Jupyter Notebooks to isolate the impact of architectural modifications on GAN discriminator stability and output fidelity.</li>
+                        <li>Applied the enhanced architecture specifically to <strong>vehicle identification tasks</strong> in object detection pipelines, demonstrating improved boundary sharpness and reduced mode collapse on the evaluation dataset.</li>
+                        <li>Presented weekly experimental findings in formal lab meetings, directly influencing the team's decision to adopt <strong>neural network ensemble strategies</strong> that improved overall experiment reproducibility and efficiency by <strong>20%</strong>.</li>
+                        <li>Maintained rigorous experiment logs and version-controlled model checkpoints, enabling full reproducibility of all results and facilitating seamless handoff to the continuing research team.</li>
+                    </ul>
                 </div>
-            </section>
-
-            <section class="experience section" id="experience">
-                <h2 class="section-title">Technical Experience</h2>
-                <div class="experience__container bd-grid">
-
-                    <div class="experience__item">
-                        <h3>Technology Security Analyst | Accenture</h3>
-                        <p>Designed scalable ServiceNow architecture for infrastructure mapping. Built vulnerability remediation workflows integrating Tenable and Python for 10,000+ weekly CVEs.</p>
+                <div class="exp-item reveal">
+                    <div class="exp-item__header">
+                        <div><div class="exp-item__role">Data Analyst Intern</div><div class="exp-item__company">Vitract (Biotech)</div></div>
+                        <div class="exp-item__date">May 2023 — Aug 2023</div>
                     </div>
-
-                    <div class="experience__item">
-                        <h3>Software Engineer Intern | Wouessi</h3>
-                        <p>Architected Redis-backed rate-limiting. Orchestrated 10 high-availability microservices using TypeScript and Python via Docker.</p>
-                    </div>
-
-                    <div class="experience__item">
-                        <h3>Computer Consultant | Carleton University</h3>
-                        <p>Diagnosed 200+ technical issues across university infrastructure and assisted in patch management, reducing system failures by 20%.</p>
-                    </div>
-
-                    <div class="experience__item">
-                        <h3>Research Intern | Carleton University</h3>
-                        <p>Developed a novel GAN architecture improving image generation by 25%. Conducted experiments using TensorFlow, Keras, and PyTorch.</p>
-                    </div>
-
-                    <div class="experience__item">
-                        <h3>Member | Vector Institute</h3>
-                        <p>Actively engaged in professional AI/ML networking and technical workshops through ColorStack and Vector's ecosystem.</p>
-                    </div>
-
-                    <div class="experience__item">
-                        <h3>Data Analyst Intern | Vitract (Biotech)</h3>
-                        <p>Developed data pipelines using SWI-Prolog and Python, automating the processing of 10+ datasets and reducing latency by 15%.</p>
-                    </div>
-
+                    <ul class="exp-item__bullets">
+                        <li>Conducted <strong>exploratory and diagnostic data analysis</strong> using SWI-Prolog on proprietary biotech datasets, identifying previously unknown correlations that led to a <strong>20% performance improvement</strong> in target pipeline outputs.</li>
+                        <li>Engineered an automated data pipeline in <strong>SWI-Prolog and Python</strong> that parsed, merged, validated, and exported over <strong>10 heterogeneous datasets</strong>, reducing manual processing time by <strong>15%</strong> and eliminating human transcription errors.</li>
+                        <li>Reduced monthly cloud instance request costs by <strong>47%</strong> by auditing web and server hosting configurations, rightsizing underutilized instances, and consolidating redundant endpoints.</li>
+                        <li>Improved the reliability of data ingestion by implementing <strong>schema validation and automated exception reporting</strong>, catching malformed records before they propagated downstream into analysis models.</li>
+                        <li>Delivered a final analytical report to stakeholders summarizing pipeline performance, cost savings, and data quality improvements — directly informing the team's infrastructure roadmap for the following quarter.</li>
+                    </ul>
                 </div>
-            </section>
+                <div class="exp-item reveal">
+                    <div class="exp-item__header">
+                        <div><div class="exp-item__role">AI Student</div><div class="exp-item__company">Vector Institute</div></div>
+                        <div class="exp-item__date">Sep 2023 — Oct 2023</div>
+                    </div>
+                    <ul class="exp-item__bullets">
+                        <li>Accepted into the <strong>Vector Institute's AI Apprenticeship program</strong> — one of Canada's premier applied AI training initiatives — gaining structured exposure to production-grade ML workflows and industry best practices.</li>
+                        <li>Participated in technical workshops covering <strong>deep learning fundamentals, model evaluation, and responsible AI deployment</strong>, reinforcing academic research with real-world engineering context.</li>
+                        <li>Engaged with a professional network of AI researchers, engineers, and founders through Vector's ecosystem, including <strong>ColorStack</strong> events focused on diversity in tech and machine learning careers.</li>
+                        <li>Applied workshop learnings to ongoing GAN research at Carleton, directly bridging Vector's industry-oriented curriculum with active academic experimentation in neural architecture design.</li>
+                        <li>Expanded awareness of Canadian AI industry landscape including emerging startups, applied ML infrastructure patterns, and the career pathways available within the Vector-affiliated company network.</li>
+                    </ul>
+                </div>
+                <div class="exp-item reveal">
+                    <div class="exp-item__header">
+                        <div><div class="exp-item__role">Information Technology Intern</div><div class="exp-item__company">Nahco Aviance</div></div>
+                        <div class="exp-item__date">Apr 2021 — Jul 2021</div>
+                    </div>
+                    <ul class="exp-item__bullets">
+                        <li>Deployed and configured <strong>3 critical IT systems</strong> supporting ground operations, improving overall operational efficiency by <strong>20%</strong> and reducing manual process bottlenecks in daily workflows.</li>
+                        <li>Developed and maintained <strong>backend APIs for 5 core services</strong>, improving system throughput by <strong>30%</strong> and hardening endpoint security by <strong>25%</strong> through input validation and access control improvements.</li>
+                        <li>Engineered a high-availability IT infrastructure and backend for an <strong>online event services platform</strong>, architected to support <strong>500 concurrent users</strong> and reducing system failures under load by <strong>40%</strong>.</li>
+                        <li>Led development of new company website features that increased visitor engagement by <strong>15%</strong>, including improved navigation, dynamic content sections, and optimized page load performance.</li>
+                        <li>Documented all deployed systems, API contracts, and infrastructure configurations — enabling the in-house IT team to independently maintain and extend all delivered solutions post-internship.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-            <section class="skills section" id="skills">
-                <h2 class="section-title">Technical Stack</h2>
-                <div class="skills__container bd-grid">
-                    <div>
-                        <h3 class="skills__subtitle">Programming Languages</h3>
-                        <p>Python, Java, C, C++, Swift, SQL, JavaScript, HTML, CSS, PHP, Prolog</p>
-                        
-                        <h3 class="skills__subtitle" style="margin-top: 1.5rem;">Infrastructure & Tools</h3>
-                        <p>AWS, Docker, Kubernetes, Linux, Git, REST APIs, Tenable, ServiceNow, Xcode, PySpark, Redis, TensorFlow, PyTorch</p>
+        <!-- SKILLS -->
+        <section id="skills">
+            <div class="section__header reveal">
+                <span class="section__num">03</span>
+                <h2 class="section__title">Technical Stack</h2>
+                <div class="section__line"></div>
+            </div>
+            <div class="skills__grid skills__grid--3">
+                <div class="skill-block reveal">
+                    <div class="skill-block__label">Languages</div>
+                    <div class="skill-pills">
+                        <span class="pill">Python</span>
+                        <span class="pill">Java</span>
+                        <span class="pill">C</span>
+                        <span class="pill">C++</span>
+                        <span class="pill">Swift</span>
+                        <span class="pill">SQL</span>
+                        <span class="pill">JavaScript</span>
+                        <span class="pill">TypeScript</span>
+                        <span class="pill">HTML/CSS</span>
+                        <span class="pill">PHP</span>
+                        <span class="pill">Prolog</span>
                     </div>
                 </div>
-            </section>
-        </main>
+                <div class="skill-block reveal">
+                    <div class="skill-block__label">Infrastructure & Tools</div>
+                    <div class="skill-pills">
+                        <span class="pill">AWS</span>
+                        <span class="pill">Docker</span>
+                        <span class="pill">Kubernetes</span>
+                        <span class="pill">Linux</span>
+                        <span class="pill">Git</span>
+                        <span class="pill">REST APIs</span>
+                        <span class="pill">JSON</span>
+                        <span class="pill">Tenable</span>
+                        <span class="pill">ServiceNow</span>
+                        <span class="pill">Xcode</span>
+                        <span class="pill">PySpark</span>
+                        <span class="pill">Redis</span>
+                        <span class="pill">MongoDB</span>
+                        <span class="pill">TensorFlow</span>
+                        <span class="pill">PyTorch</span>
+                        <span class="pill">Keras</span>
+                    </div>
+                </div>
+                <div class="skill-block reveal">
+                    <div class="skill-block__label">Engineering Practices</div>
+                    <div class="skill-pills">
+                        <span class="pill">Unit Testing</span>
+                        <span class="pill">TDD</span>
+                        <span class="pill">Agile / Scrum</span>
+                        <span class="pill">CI/CD</span>
+                        <span class="pill">Debugging</span>
+                        <span class="pill">Design Patterns</span>
+                        <span class="pill">Documentation</span>
+                        <span class="pill">Microservices</span>
+                        <span class="pill">Code Review</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- VOLUNTEERING -->
+        <section id="volunteering">
+            <div class="section__header reveal">
+                <span class="section__num">04</span>
+                <h2 class="section__title">Volunteering</h2>
+                <div class="section__line"></div>
+            </div>
+            <div class="experience__timeline">
+                <div class="exp-item reveal">
+                    <div class="exp-item__header">
+                        <div><div class="exp-item__role">Volunteer Software Developer</div><div class="exp-item__company">Gloucester Family Health Centre</div></div>
+                        <div class="exp-item__date">May 2023 — Jun 2023</div>
+                    </div>
+                    <ul class="exp-item__bullets">
+                        <li>Volunteered engineering time to improve the clinic's <strong>patient-facing web booking system</strong>, reducing booking friction for a community health centre serving hundreds of patients weekly.</li>
+                        <li>Designed and implemented a <strong>relational database</strong> to persistently store patient account registration data, replacing a fragile flat-file system and enabling reliable record retrieval across sessions.</li>
+                        <li>Built and integrated a <strong>SendGrid-powered email notification service</strong> that automatically alerted clinic staff when new patient bookings were placed — eliminating the need for manual inbox monitoring.</li>
+                        <li>Automated the end-to-end booking confirmation flow using <strong>Python and JavaScript</strong>: new bookings triggered email delivery and simultaneously appended patient details to a structured <strong>Excel spreadsheet</strong> for administrative records.</li>
+                        <li>Delivered a fully documented, production-ready solution within a <strong>2-month volunteer engagement</strong>, enabling clinic staff to independently manage and extend the system with no ongoing developer dependency.</li>
+                    </ul>
+                </div>
+                <div class="exp-item reveal">
+                    <div class="exp-item__header">
+                        <div><div class="exp-item__role">Mentor</div><div class="exp-item__company">Systems and Computer Engineering Society (SCEsoc)</div></div>
+                        <div class="exp-item__date">Sep 2023 — Present</div>
+                    </div>
+                    <ul class="exp-item__bullets">
+                        <li>Served as a technical mentor to incoming software engineering students at Carleton, providing guidance on coursework, career planning, and navigating the transition from high school to university engineering.</li>
+                        <li>Led and contributed to <strong>bi-weekly technical workshops</strong> covering Python, data structures, and software development fundamentals — improving the practical skills of <strong>40+ club members and alumni</strong>.</li>
+                        <li>Guided <strong>5+ first-year students</strong> through the challenges of their first semester, offering academic and social support that contributed to a <strong>100% mentee retention rate</strong> through the first year.</li>
+                        <li>Collaborated with the SCEsoc executive team to plan programming, recruit mentors, and create a welcoming technical community for underrepresented students in engineering.</li>
+                        <li>Connected mentees with professional development resources through <strong>ColorStack, NSBE, and Black Brilliant Minds (BBM)</strong> networks, expanding their access to internship opportunities and industry connections.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <p>© 2026 Joel Ajakaye — Ottawa, ON</p>
+        <div class="footer__right">
+            <a href="https://github.com/Hybried8" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/joel-ajakaye-75a529213" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
 
-        <footer class="footer">
-            <p class="footer__copy">&#169; 2026 Joel Ajakaye | Ottawa, ON</p>
-        </footer>
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('cursorFollower');
+        let fx = 0, fy = 0, cx = 0, cy = 0;
+        document.addEventListener('mousemove', e => {
+            cx = e.clientX; cy = e.clientY;
+            cursor.style.left = cx + 'px';
+            cursor.style.top = cy + 'px';
+        });
+        function animateFollower() {
+            fx += (cx - fx) * 0.12;
+            fy += (cy - fy) * 0.12;
+            follower.style.left = fx + 'px';
+            follower.style.top = fy + 'px';
+            requestAnimationFrame(animateFollower);
+        }
+        animateFollower();
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '16px'; cursor.style.height = '16px';
+                follower.style.transform = 'translate(-50%,-50%) scale(1.5)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '10px'; cursor.style.height = '10px';
+                follower.style.transform = 'translate(-50%,-50%) scale(1)';
+            });
+        });
 
-        <script>
-            const themeButton = document.getElementById('theme-button')
-            const darkTheme = 'dark-theme'
-            const iconTheme = 'bx-sun'
+        // Scroll reveal
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            themeButton.addEventListener('click', () => {
-                document.body.classList.toggle(darkTheme)
-                themeButton.classList.toggle(iconTheme)
-            })
-        </script>
-        <script src="assets/js/main.js"></script>
-    </body>
+        // Active nav links
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav__links a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
+            navLinks.forEach(a => {
+                a.style.color = a.getAttribute('href') === '#' + current ? 'var(--purple-pale)' : '';
+            });
+        });
+    </script>
+</body>
 </html>
