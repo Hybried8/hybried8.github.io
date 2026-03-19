@@ -7,57 +7,82 @@
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <title>Joel Ajakaye | Software Engineer</title>
         <style>
-            /* Custom Layout Tweaks */
+            :root {
+                --first-color: #000000;
+                --text-color: #000000;
+                --body-color: #ffffff;
+                --container-color: #ffffff;
+            }
+
+            /* Dark Mode Variables */
+            body.dark-theme {
+                --first-color: #ffffff;
+                --text-color: #e0e0e0;
+                --body-color: #121212;
+                --container-color: #1e1e1e;
+            }
+
+            body { color: var(--text-color); background-color: var(--body-color); transition: .4s; }
+            h1, h2, h3, p { color: var(--text-color); }
+
+            .nav__btns { display: flex; align-items: center; column-gap: 1rem; }
+            .change-theme { font-size: 1.25rem; color: var(--text-color); cursor: pointer; }
+
             .project__item {
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 gap: 1.5rem;
-                margin-bottom: 2rem;
+                margin-bottom: 2.5rem;
                 padding: 1rem;
                 border-left: 2px solid var(--first-color);
             }
-            .project__icon {
-                font-size: 1.5rem; /* Smaller icons as requested */
+
+            /* Clickable Project Icons */
+            .project__link-icon {
+                font-size: 1.8rem;
                 color: var(--first-color);
-                min-width: 30px;
+                transition: .3s;
+                padding-top: 5px;
             }
-            .project__details {
-                flex-grow: 1;
-            }
-            .experience__item {
-                margin-bottom: 2.5rem;
-            }
-            .tech-stack {
-                font-family: monospace;
-                font-size: 0.85rem;
-                color: var(--first-color);
+            .project__link-icon:hover { transform: scale(1.2); color: #555; }
+
+            .experience__item { margin-bottom: 2.5rem; }
+            .tech-stack-label {
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: bold;
+                font-size: 0.8rem;
                 margin-top: 0.5rem;
                 display: block;
+                text-transform: uppercase;
             }
-            .section-title { margin-bottom: 2rem; }
         </style>
     </head>
     <body>
         <header class="l-header">
             <nav class="nav bd-grid">
                 <div><a href="#" class="nav__logo">JOEL AJAKAYE</a></div>
+                
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
                         <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
                         <li class="nav__item"><a href="#experience" class="nav__link">Experience</a></li>
-                        <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
+                        <li class="nav__item"><a href="#skills" class="nav__link">Stack</a></li>
                     </ul>
                 </div>
-                <div class="nav__toggle" id="nav-toggle"><i class='bx bx-menu'></i></div>
+
+                <div class="nav__btns">
+                    <i class='bx bx-moon change-theme' id="theme-button"></i>
+                    <div class="nav__toggle" id="nav-toggle"><i class='bx bx-menu'></i></div>
+                </div>
             </nav>
         </header>
 
         <main class="l-main">
             <section class="home bd-grid" id="home">
                 <div class="home__data">
-                    <h1 class="home__title">Joel <br><span class="home__title-color">Ajakaye</span></h1>
-                    <p>Software Engineer</p>
+                    <h1 class="home__title">Joel <br>Ajakaye</h1>
+                    <p style="font-weight: bold;">Software Engineer</p>
                     <div class="home__social">
                         <a href="https://github.com/Hybried8" target="_blank" class="home__social-icon"><i class='bx bxl-github'></i></a>
                         <a href="https://www.linkedin.com/in/joel-ajakaye-75a529213" target="_blank" class="home__social-icon"><i class='bx bxl-linkedin'></i></a>
@@ -70,47 +95,35 @@
                 <div class="projects__container bd-grid">
 
                     <div class="project__item">
-                        <i class='bx bx-data project__icon'></i>
+                        <a href="https://github.com/Hybried8/ETL" target="_blank" class="project__link-icon">
+                            <i class='bx bx-data'></i>
+                        </a>
                         <div class="project__details">
                             <h3>ETL Data Pipeline</h3>
-                            <p>Engineered an ETL pipeline to retrieve financial data from Yahoo Finance at hourly intervals. Leveraged PySpark for processing 100GB of data with Plotly visualizations.</p>
-                            <span class="tech-stack">PySpark, Python, Yahoo Finance API, Plotly</span>
+                            <p>Engineered a pipeline to retrieve financial data from Yahoo Finance at hourly intervals. Leveraged PySpark for 100GB+ datasets with Plotly visualizations.</p>
+                            <span class="tech-stack-label">PySpark, Python, Plotly</span>
                         </div>
                     </div>
 
                     <div class="project__item">
-                        <i class='bx bxl-apple project__icon'></i>
+                        <a href="https://github.com/Hybried8/Charted" target="_blank" class="project__link-icon">
+                            <i class='bx bxl-apple'></i>
+                        </a>
                         <div class="project__details">
-                            <h3>Charted (iOS App)</h3>
-                            <p>Comprehensive financial analysis and recommendation app for iOS. Integrated complex calculation algorithms for personalized financial insights.</p>
-                            <span class="tech-stack">Swift, SwiftUI, Xcode</span>
+                            <h3>Charted (iOS)</h3>
+                            <p>Financial analysis and recommendation engine for iOS. Integrated complex calculation algorithms for personalized asset insights.</p>
+                            <span class="tech-stack-label">Swift, SwiftUI, Xcode</span>
                         </div>
                     </div>
 
                     <div class="project__item">
-                        <i class='bx bx-code-alt project__icon'></i>
+                        <a href="https://github.com/Hybried8/Refactor" target="_blank" class="project__link-icon">
+                            <i class='bx bx-brain'></i>
+                        </a>
                         <div class="project__details">
                             <h3>OpenAI Code Refactor</h3>
-                            <p>AI-powered tool using OpenAI API and TensorFlow to automate code refactoring and analyze multiple code parameters simultaneously.</p>
-                            <span class="tech-stack">Python, OpenAI API, TensorFlow</span>
-                        </div>
-                    </div>
-
-                    <div class="project__item">
-                        <i class='bx bx-extension project__icon'></i>
-                        <div class="project__details">
-                            <h3>CodeX Browser Extension</h3>
-                            <p>Web extension enabling direct conversion of source code to text file format with syntax highlighting and cross-browser compatibility.</p>
-                            <span class="tech-stack">JavaScript, HTML5, CSS3</span>
-                        </div>
-                    </div>
-
-                    <div class="project__item">
-                        <i class='bx bx-cube project__icon'></i>
-                        <div class="project__details">
-                            <h3>3D Tennis Racket Model</h3>
-                            <p>Mechanical design and 3D modeling of a tennis racket, focusing on circuit simulation and structural robotics principles.</p>
-                            <span class="tech-stack">3D Modeling, Robotics Simulation</span>
+                            <p>AI-powered refactoring tool using OpenAI API and TensorFlow to analyze and optimize code parameters automatically.</p>
+                            <span class="tech-stack-label">Python, OpenAI API, TensorFlow</span>
                         </div>
                     </div>
 
@@ -123,27 +136,32 @@
 
                     <div class="experience__item">
                         <h3>Technology Security Analyst | Accenture</h3>
-                        <p>Architected scalable ServiceNow integration with infrastructure mapping. Engineered vulnerability detection workflows using Tenable and Python scripts to automate triage for 10,000+ weekly vulnerabilities.</p>
+                        <p>Designed scalable ServiceNow architecture for infrastructure mapping. Built vulnerability remediation workflows integrating Tenable and Python for 10,000+ weekly CVEs.</p>
                     </div>
 
                     <div class="experience__item">
                         <h3>Software Engineer Intern | Wouessi</h3>
-                        <p>Architected Redis-backed rate-limiting middleware. Developed and containerized 10 high-availability microservices using TypeScript, Python, and MongoDB orchestrated via Docker.</p>
+                        <p>Architected Redis-backed rate-limiting. Orchestrated 10 high-availability microservices using TypeScript and Python via Docker.</p>
                     </div>
 
                     <div class="experience__item">
-                        <h3>Research Intern | Carleton University (Vector Institute)</h3>
-                        <p>Advanced GAN research by developing a novel architecture that improved image generation quality by 25%. Conducted object detection experiments using TensorFlow, Keras, and PyTorch.</p>
+                        <h3>Computer Consultant | Carleton University</h3>
+                        <p>Diagnosed 200+ technical issues across university infrastructure and assisted in patch management, reducing system failures by 20%.</p>
+                    </div>
+
+                    <div class="experience__item">
+                        <h3>Research Intern | Carleton University</h3>
+                        <p>Developed a novel GAN architecture improving image generation by 25%. Conducted experiments using TensorFlow, Keras, and PyTorch.</p>
+                    </div>
+
+                    <div class="experience__item">
+                        <h3>Member | Vector Institute</h3>
+                        <p>Actively engaged in professional AI/ML networking and technical workshops through ColorStack and Vector's ecosystem.</p>
                     </div>
 
                     <div class="experience__item">
                         <h3>Data Analyst Intern | Vitract (Biotech)</h3>
-                        <p>Conducted data analysis using Prolog. Developed a data pipeline using SWI-Prolog and Python to automate the parsing, merging, and testing of 10+ datasets.</p>
-                    </div>
-
-                    <div class="experience__item">
-                        <h3>IT Intern | Nahco Aviance</h3>
-                        <p>Developed backend APIs for core services and engineered IT infrastructure for online event services supporting 500 concurrent users.</p>
+                        <p>Developed data pipelines using SWI-Prolog and Python, automating the processing of 10+ datasets and reducing latency by 15%.</p>
                     </div>
 
                 </div>
@@ -156,17 +174,27 @@
                         <h3 class="skills__subtitle">Programming Languages</h3>
                         <p>Python, Java, C, C++, Swift, SQL, JavaScript, HTML, CSS, PHP, Prolog</p>
                         
-                        <h3 class="skills__subtitle" style="margin-top: 1.5rem;">Tools & DevOps</h3>
-                        <p>AWS, Docker, Kubernetes, Linux, Git, REST APIs, Tenable, ServiceNow, Xcode, PySpark</p>
+                        <h3 class="skills__subtitle" style="margin-top: 1.5rem;">Infrastructure & Tools</h3>
+                        <p>AWS, Docker, Kubernetes, Linux, Git, REST APIs, Tenable, ServiceNow, Xcode, PySpark, Redis, TensorFlow, PyTorch</p>
                     </div>
                 </div>
             </section>
         </main>
 
         <footer class="footer">
-            <p class="footer__copy">&#169; 2026 Joel Ajakaye | Ottawa, Ontario</p>
+            <p class="footer__copy">&#169; 2026 Joel Ajakaye | Ottawa, ON</p>
         </footer>
 
+        <script>
+            const themeButton = document.getElementById('theme-button')
+            const darkTheme = 'dark-theme'
+            const iconTheme = 'bx-sun'
+
+            themeButton.addEventListener('click', () => {
+                document.body.classList.toggle(darkTheme)
+                themeButton.classList.toggle(iconTheme)
+            })
+        </script>
         <script src="assets/js/main.js"></script>
     </body>
 </html>
